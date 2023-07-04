@@ -14,8 +14,7 @@ import CoreData
 struct ShortcutsBookEntity: Identifiable, Hashable, Equatable, AppEntity {
   
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Book")
-    typealias DefaultQueryType = IntentsBookQuery
-    static var defaultQuery: IntentsBookQuery = IntentsBookQuery()
+    static var defaultQuery = IntentsBookQuery()
     
     var id: UUID
     
