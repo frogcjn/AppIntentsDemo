@@ -18,16 +18,13 @@ enum NavigationType: String, AppEnum, CaseDisplayRepresentable {
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Navigation")
     
     static var caseDisplayRepresentations: [NavigationType: DisplayRepresentation] = [
-        .library: DisplayRepresentation(stringLiteral: ""),
-        .book: DisplayRepresentation(stringLiteral: "")
-    ]/*[
             .library: DisplayRepresentation(title: "Library",
                                             subtitle: "Return to the home page",
-                                            image: DisplayRepresentation.Image(systemName: "books.vertical")),
+                                            image: DisplayRepresentation.Image(systemName: "books.vertical")!),
             .book: DisplayRepresentation(title: "Book",
                                          subtitle: "Navigate to a specific book",
-                                         image: DisplayRepresentation.Image(systemName: "book"))
-    ]*/
+                                         image: DisplayRepresentation.Image(systemName: "book")!)
+    ]
 
 }
 
