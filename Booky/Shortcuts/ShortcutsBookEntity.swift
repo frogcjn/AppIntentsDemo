@@ -74,6 +74,7 @@ extension ShortcutsBookEntity {
 
 struct IntentsBookQuery: EntityPropertyQuery {
 
+    typealias ComparatorMappingType = NSPredicate
     // Find books by ID
     // For example a user may have chosen a book from a list when tapping on a parameter that accepts Books. The ID of that book is now hardcoded into the Shortcut. When the shortcut is run, the ID will be matched against the database in Booky
     func entities(for identifiers: [UUID]) async throws -> [ShortcutsBookEntity] {
@@ -126,7 +127,7 @@ struct IntentsBookQuery: EntityPropertyQuery {
         }
     }
          
-    static var properties = EntityQueryProperties<ShortcutsBookEntity, NSPredicate> {
+    static var properties = EntityQueryProperties<ShortcutsBookEntity, ComparatorMappingType> {
         Property(\ShortcutsBookEntity.$title) {
             EqualToComparator { NSPredicate(format: "title = %@", $0) }
             ContainsComparator { NSPredicate(format: "title CONTAINS %@", $0) }
@@ -148,8 +149,17 @@ struct IntentsBookQuery: EntityPropertyQuery {
         SortableBy(\ShortcutsBookEntity.$datePublished)
     }
     
+    static var findIntentDescription: IntentDescription? {
+        return IntentDescription(
+    """
+    Add a new book to your collection.
+
+    A preview of the new book is optionally shown as a Snippet after the action has run.
+    """, categoryName: "Searching")
+    }
+    
     func entities(
-        matching comparators: [NSPredicate],
+        matching comparators: [ComparatorMappingType],
         mode: ComparatorMode,
         sortedBy: [Sort<ShortcutsBookEntity>],
         limit: Int?
