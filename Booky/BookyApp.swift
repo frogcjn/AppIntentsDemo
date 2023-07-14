@@ -9,8 +9,12 @@ import SwiftUI
 @main
 struct BookyApp: App {
     
-    @AppStorage("isFirstRun") var isFirstRun = true
-    @StateObject var viewModel = ViewModel.shared
+    @AppStorage("isFirstRun")
+    var isFirstRun = true
+    
+    @StateObject
+    var viewModel = ViewModel.shared
+    
     let context = PersistenceController.shared.container.viewContext
     
     var body: some Scene {
