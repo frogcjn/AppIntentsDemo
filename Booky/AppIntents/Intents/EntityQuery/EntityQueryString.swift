@@ -6,7 +6,7 @@
 //
 import AppIntents
 
-struct BookEntityStringQuery: BookEntityQuery, EntityStringQuery {
+struct EntityQueryString_BookEntity: EntityQuery_BookEntity, EntityStringQuery {
     // Find books matching the given query.
     @MainActor
     func entities(matching query: String) async throws -> [BookEntity] {

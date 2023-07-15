@@ -7,9 +7,9 @@
 
 import AppIntents
 
-protocol BookEntityQuery : EntityQuery {
+protocol EntityQuery_BookEntity : EntityQuery {
 }
-extension BookEntityQuery {
+extension EntityQuery_BookEntity {
     // Find books by ID
     // For example a user may have chosen a book from a list when tapping on a parameter that accepts Books. The ID of that book is now hardcoded into the Shortcut. When the shortcut is run, the ID will be matched against the database in Booky
     @MainActor

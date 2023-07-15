@@ -8,7 +8,7 @@
 import AppIntents
 import SwiftData
 
-struct BookEntityPropertyQuery_SwiftData: BookEntityQuery, EntityPropertyQuery {
+struct EntityPropertyQuery_BookEntity_SwiftData: EntityQuery_BookEntity, EntityPropertyQuery {
     
     static var findIntentDescription: IntentDescription? {
         return IntentDescription(
@@ -53,7 +53,8 @@ struct BookEntityPropertyQuery_SwiftData: BookEntityQuery, EntityPropertyQuery {
         let sortDescriptors: [SortDescriptor<Book>] = sortedBy.map(Book.sortDescriptor(fromEntity:))
 
         var fetchDescriptor = FetchDescriptor<Book>()
-        // fetchDescriptor.predicate = predicate // !!!: there is no way to combine multiple Swift Predicates into one Predicate, and set it into fetchDescriptor.
+        // !!!: there is no way to combine multiple Swift Predicates into one Predicate, and set it into fetchDescriptor.
+        // fetchDescriptor.predicate = predicate
         fetchDescriptor.sortBy = sortDescriptors
         fetchDescriptor.fetchLimit = limit
 

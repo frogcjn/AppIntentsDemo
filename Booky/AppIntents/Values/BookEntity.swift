@@ -15,9 +15,21 @@ struct BookEntity: AppEntity {
   
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Book")
     
-    // switch 2 versions of BookEntityPropertyQuery
-    static var defaultQuery = BookEntityPropertyQuery_CoreData()
-    // static var defaultQuery = BookEntityPropertyQuery_SwiftData()
+    // MARK: Find Intent & Default Query
+    
+    /*
+        // 1: Entity Query - String
+        static var defaultQuery = BookEntityStringQuery()
+
+        // 2: Entity Query - Enumerable
+        static var defaultQuery = BookEntityEnumerableQuery()
+    */
+    // 3: Entity Query - Property
+    // 3-1 BookEntityPropertyQuery with SwiftData
+    static var defaultQuery = EntityPropertyQuery_BookEntity_SwiftData() // !!!: SwiftData version: lack of predicate filter feature
+    
+    // 3-2 BookEntityPropertyQuery with CoreData
+    // static var defaultQuery = BookEntityPropertyQuery_CoreData() // !!!: CoreData version: OK with predicate filter feature
     
     var uuid: UUID
     
