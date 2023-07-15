@@ -6,6 +6,7 @@
 
 import SwiftUI
 import SwiftData
+import CoreData
 
 @main
 struct BookyApp: App {
@@ -19,7 +20,8 @@ struct BookyApp: App {
     var body: some Scene {
         WindowGroup {
             ListView()
-                .environment(\.modelContext, ModelContext.shared)
+                .environment(\.modelContext, ModelContext.main)
+                .environment(\.managedObjectContext, NSManagedObjectContext.main)
                 .environmentObject(viewModel)
         }
     }

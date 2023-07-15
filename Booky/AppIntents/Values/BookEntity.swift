@@ -14,7 +14,10 @@ import SwiftData
 struct BookEntity: AppEntity {
   
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Book")
-    static var defaultQuery = QueryBooksIntent()
+    
+    // switch 2 versions of BookEntityPropertyQuery
+    static var defaultQuery = BookEntityPropertyQuery_CoreData()
+    // static var defaultQuery = BookEntityPropertyQuery_SwiftData()
     
     var uuid: UUID
     

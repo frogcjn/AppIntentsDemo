@@ -10,8 +10,6 @@ import UIKit
 import SwiftData
 
 struct DeleteBooksIntent: AppIntent {
-
-    
     // A dynamic lookup parameter
     @Parameter(
                      title: "Books",

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22189.1" systemVersion="23A5286i" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="BookEntity" representedClassName="BookEntity" syncable="YES">
+    <entity name="Book" representedClassName="CDBook" syncable="YES">
         <attribute name="author" attributeType="String" defaultValueString=""/>
-        <attribute name="coverImage" optional="YES" attributeType="Binary"/>
-        <attribute name="datePublished" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="datePublished" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="isRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
+        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
 </model>

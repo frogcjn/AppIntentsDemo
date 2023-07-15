@@ -87,11 +87,11 @@ extension ModelContext {
     }*/
     
     func fetchBookEntities(uuids: [UUID]) -> [BookEntity] {
-        fetchBooks(uuids: uuids).map(\.entity)
+        fetchBooks(uuids: uuids).map(\.bookEntity)
     }
     
     func fetchAllBookEntities() throws -> [BookEntity] {
-        try fetchAllBooks().map(\.entity)
+        try fetchAllBooks().map(\.bookEntity)
     }
     
     // MARK: - Fetch from BookEntity
@@ -122,7 +122,19 @@ extension BookEntity {
 }
 
 extension Book {
-    var entity: BookEntity {
+    var bookEntity: BookEntity {
+        .init(book: self)
+    }
+}
+
+extension BookEntity {
+    init(book: CDBook) {
+        self.init(uuid: book.uuid, title: book.title, author: book.author, imageData: book.imageData, isRead: book.isRead, datePublished: book.datePublished)
+    }
+}
+
+extension CDBook {
+    var bookEntity: BookEntity {
         .init(book: self)
     }
 }

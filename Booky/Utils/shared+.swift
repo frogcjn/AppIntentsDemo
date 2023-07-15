@@ -7,34 +7,40 @@
 
 import AppIntents
 import SwiftData
+import CoreData
 
-extension ModelContainer {
-    static let shared = try! ModelContainer(for: [Book.self])
-}
 
 extension ModelContext {
     @MainActor
-    static var shared: ModelContext {
-        ModelContainer.shared.mainContext
-    }
+    static var main: ModelContext { ModelContainer.shared.mainContext }
+}
+
+extension NSManagedObjectContext {
+    static var main: NSManagedObjectContext { NSPersistentContainer.shared.viewContext }
+}
+
+extension BookEntity {
+    @MainActor
+    static var context: ModelContext { ModelContext.main }
+    static var nsContext: NSManagedObjectContext { NSManagedObjectContext.main }
 }
 
 extension AppIntent {
     @MainActor
-    var context: ModelContext { ModelContext.shared }
+    var context: ModelContext { ModelContext.main }
 }
 
 extension EntityQuery {
     @MainActor
-    var context: ModelContext { ModelContext.shared }
+    var context: ModelContext { ModelContext.main }
 }
 
 extension DynamicOptionsProvider {
     @MainActor
-    var context: ModelContext { ModelContext.shared }
+    var context: ModelContext { ModelContext.main }
 }
 
 extension AppEntity {
     @MainActor
-    var context: ModelContext { ModelContext.shared }
+    var context: ModelContext { ModelContext.main }
 }

@@ -8,9 +8,10 @@
 
 import Foundation
 import SwiftData
+import CoreData
 
 @Model
-class Book {
+final class Book {
     @Attribute(.unique)
     var uuid: UUID
     
@@ -18,12 +19,11 @@ class Book {
     
     var author: String
     
-    @Attribute(.externalStorage)
     var imageData: Data?
         
-    var datePublished: Date
-
     var isRead: Bool
+    
+    var datePublished: Date
     
     init(
                  uuid: UUID? = nil,

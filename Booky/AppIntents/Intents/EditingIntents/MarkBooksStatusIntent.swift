@@ -59,9 +59,7 @@ extension MarkBooksStatusIntent {
         @MainActor
         func results() async throws -> ItemCollection<BookEntity> {
             
-            let allBooks = try context.fetchAllBooks().map {
-                BookEntity(book: $0)
-            }
+            let allBooks = try context.fetchAllBookEntities()
             let readBooks = allBooks.filter{ $0.isRead }
             let unreadBooks = allBooks.filter{ !$0.isRead }
             

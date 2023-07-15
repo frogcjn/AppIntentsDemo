@@ -62,7 +62,7 @@ struct AddBookIntent: AppIntent {
             datePublished: datePublished
         )
         context.insert(book)
-        return .result(value: book.entity) { // <-- we output the 'Book' to be used in the next shortcut action
+        return .result(value: book.bookEntity) { // <-- we output the 'Book' to be used in the next shortcut action
             
             // Including a trailing closure with a SwiftUI view adds a 'Show When Run' button to the Shortcut action
             // If this is toggled, the view will be shown as a 'Snippet' then the result is output
