@@ -7,7 +7,7 @@
 
 import AppIntents
 
-struct EntityQueryEnumerable_BookEntity: EnumerableEntityQuery, EntityQuery_BookEntity {
+struct EnumerableEntityQuery_BookEntity: EnumerableEntityQuery, EntityQuery_BookEntity {
     static var findIntentDescription: IntentDescription? {
         .init(
             """

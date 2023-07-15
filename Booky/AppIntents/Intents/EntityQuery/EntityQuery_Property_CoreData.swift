@@ -8,7 +8,7 @@
 import AppIntents
 import CoreData
 
-struct EntityQueryProperty_BookEntity_CoreData: EntityQuery_BookEntity, EntityPropertyQuery {
+struct PropertyEntityQuery_BookEntity_CoreData: EntityQuery_BookEntity, EntityPropertyQuery {
     
     static var findIntentDescription: IntentDescription? {
         .init(
