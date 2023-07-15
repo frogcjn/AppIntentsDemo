@@ -14,5 +14,4 @@ https://github.com/frogcjn/AppIntentsDemo/blob/e2ef31ed160cbbc649a54d20509a40796
 ## video 
 This video demos the `PropertyEntityQuery` (Find Intent) implemented with SwiftData, which lack of multiple-predicates filter feature.
 
-https://github.com/frogcjn/AppIntentsDemo/assets/1777562/e29a085c-17ed-41dc-b034-5f544210e5be
-
+https://github.com/frogcjn/AppIntentsDemo/assets/1777562/6ad1d05e-93ee-450a-90bb-bc9512a01e23
