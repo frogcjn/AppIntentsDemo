@@ -7,7 +7,7 @@
 
 import AppIntents
 
-struct OpenCurrentlyReading: AppIntent {
+struct OpenCurrentBookIntent: AppIntent {
     static var title: LocalizedStringResource = "Open Currently Reading"
     static var openAppWhenRun: Bool = true
 

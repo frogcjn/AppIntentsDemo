@@ -28,7 +28,7 @@ enum NavigationType: String, AppEnum, CaseDisplayRepresentable {
 
 }
 
-struct OpenBook: AppIntent {
+struct OpenBookIntent: AppIntent {
     
     // Title of the action in the Shortcuts app
     static var title: LocalizedStringResource = "Open Book"
@@ -39,7 +39,7 @@ struct OpenBook: AppIntent {
     
     // A dynamic lookup parameter
     @Parameter(title: "Book", description: "The book to open in Booky", requestValueDialog: IntentDialog("Which book would you like to open?"))
-    var book: ShortcutsBookEntity
+    var entity: BookEntity
     
     // An enum parameter
     @Parameter(title: "Navigation", description: "Choose whether to open a book or navigate to Booky's library", default: .book, requestValueDialog: IntentDialog("What would you like to navigate to?"))
@@ -48,32 +48,26 @@ struct OpenBook: AppIntent {
     // How the summary will appear in the shortcut action.
     static var parameterSummary: some ParameterSummary {
         
-        Switch(\OpenBook.$navigation) {
+        Switch(\OpenBookIntent.$navigation) {
             Case(NavigationType.book) {
-                Summary("Open \(\.$navigation) \(\.$book)")
+                Summary("Open \(\.$navigation) \(\.$entity)")
             }
             Case(NavigationType.library) {
                 Summary("Open \(\.$navigation)")
             }
             DefaultCase {
-                Summary("Open \(\.$navigation) \(\.$book)")
+                Summary("Open \(\.$navigation) \(\.$entity)")
             }
         }
     }
 
     @MainActor // <-- include if the code needs to be run on the main thread
     func perform() async throws -> some IntentResult {
-        do {
-            if navigation == .book {
-                let matchingBook = try BookManager.shared.findBook(withId: book.id)
-                ViewModel.shared.navigateTo(book: matchingBook)
-            } else {
-                ViewModel.shared.navigateToLibrary()
-            }
-            return .result()
-        } catch let error {
-            throw error
+        if navigation == .book {
+            ViewModel.shared.navigateTo(book: try entity.book)
+        } else {
+            ViewModel.shared.navigateToLibrary()
         }
+        return .result()
     }
 }
-
