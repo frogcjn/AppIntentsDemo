@@ -4,19 +4,12 @@
 
 ## code
 Refer the `BookEntity.swift` code to alter SwiftData and CoreData version of `PropertyEntityQuery_BookEntity`.
-`./Booky/AppIntents/Values/BookEntity.swift`
-```Swift
-    // option 3: Property Entity Query
-    // option 3-1: Property Entity Query - SwiftData version
-    static var defaultQuery = PropertyEntityQuery_BookEntity_SwiftData() // !!!: SwiftData version: lack of multiple-predicates filter feature
-    
-    // option 3-2: Property Entity Query - CoreData version
-    // static var defaultQuery = PropertyEntityQuery_BookEntity_CoreData() // !!!: CoreData version: OK with multiple-predicates filter feature
-```
+https://github.com/frogcjn/AppIntentsDemo/blob/e2ef31ed160cbbc649a54d20509a40796beb7555/Booky/AppIntents/Values/BookEntity.swift#L26-L31
 
-The implementation is in these two files:
-* `./Booky/AppIntents/Intents/EntityQuery/EntityQuery_Property_CoreData.swift`
-* `./Booky/AppIntents/Intents/EntityQuery/EntityQuery_Property_SwiftData.swift`
+The implementation is in these two files `EntityQuery_Property_SwiftData.swift` and `EntityQuery_Property_CoreData.swift`:
+https://github.com/frogcjn/AppIntentsDemo/blob/e2ef31ed160cbbc649a54d20509a40796beb7555/Booky/AppIntents/Intents/EntityQuery/EntityQuery_Property_SwiftData.swift#L21-L63
+https://github.com/frogcjn/AppIntentsDemo/blob/e2ef31ed160cbbc649a54d20509a40796beb7555/Booky/AppIntents/Intents/EntityQuery/EntityQuery_Property_CoreData.swift#L22-L61
+
 
 ## video 
 This video demos the `PropertyEntityQuery` (Find Intent) implemented with SwiftData, which lack of multiple-predicates filter feature.
