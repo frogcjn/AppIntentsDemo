@@ -8,19 +8,12 @@
 import AppIntents
 
 // These will be the options in the Shortcut action to mark the book as read or unread
-enum BookStatus: String, AppEnum {
+enum BookStatus: String {
     case read
     case unread
-    
-    var isRead: Bool {
-        switch self {
-            case .read: true
-            case.unread: false
-        }
-    }
 }
 
-extension BookStatus {
+extension BookStatus: AppEnum {
     
     // This will be displayed as the title of the menu shown when picking from the options
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Status")
@@ -30,4 +23,11 @@ extension BookStatus {
         .read: "Read",
         .unread: "Unread"
     ]
+    
+    var isRead: Bool {
+        switch self {
+            case .read: true
+            case.unread: false
+        }
+    }
 }

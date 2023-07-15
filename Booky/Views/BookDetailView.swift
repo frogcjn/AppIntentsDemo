@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     
-    var book: BookEntity
+    var book: Book
     
     var body: some View {
         ScrollView {
@@ -22,11 +22,11 @@ struct DetailView: View {
 
 struct BookView: View {
     
-    var book: BookEntity
+    var book: Book
     var smallImage: Bool = false
     
     var body: some View {
-        if let imageData = book.coverImage, let image = UIImage(data: imageData) {
+        if let imageData = book.imageData, let image = UIImage(data: imageData) {
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)

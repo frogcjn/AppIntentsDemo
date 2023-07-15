@@ -21,9 +21,7 @@ struct QueryBooksIntent: EntityPropertyQuery {
     // Returns all Books in the Booky database. This is what populates the list when you tap on a parameter that accepts a Book
     @MainActor
     func suggestedEntities() async throws -> [BookEntity] {
-        try context.fetchAllBooks().map {
-            BookEntity(book: $0)
-        }
+        try context.fetchAllBookEntities()
     }
     
     // Find books matching the given query.

@@ -11,12 +11,12 @@ class ViewModel: ObservableObject  {
     
     static let shared = ViewModel()
     
-    @Published var path: [BookEntity] = []
+    @Published var path: [Book] = []
     @Published var showingAddNewBook = false
     @Published var showingImagePicker = false
     
     // Opens a specific Book detail view
-    func navigateTo(book: BookEntity) {
+    func navigateTo(book: Book) {
         path = [book]
     }
     

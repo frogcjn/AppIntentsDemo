@@ -12,7 +12,7 @@ struct OpenShelf: AppIntent {
     static var openAppWhenRun: Bool = true
 
     @Parameter(title: "Shelf")
-    var shelf: Shelf
+    var bookShelf: BookShelf
 
     @MainActor
     func perform() async throws -> some IntentResult {
@@ -21,6 +21,6 @@ struct OpenShelf: AppIntent {
     }
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Open \(\.$shelf)")
+        Summary("Open \(\.$bookShelf)")
     }
 }

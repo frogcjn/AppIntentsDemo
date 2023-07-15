@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ListRowView: View {
     
-    @ObservedObject var book: BookEntity
+    @State
+    var book: Book
+    
+    @Environment(\.modelContext)
+    var context
     
     var body: some View {
         HStack {
             Group {
-                if let data = book.coverImage, let image = UIImage(data: data) {
+                if let data = book.imageData, let image = UIImage(data: data) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 64, height: 105)
@@ -47,7 +50,7 @@ struct ListRowView: View {
         }
         .contextMenu {
             Button {
-                try? BookManager.shared.markBook(withId: book.id, as: book.isRead ? .unread : .read)
+                book.isRead.toggle()
             } label: {
                 book.isRead ? Label("Mark as unread", systemImage: "x.circle") : Label("Mark as read", systemImage: "checkmark.circle")
             }

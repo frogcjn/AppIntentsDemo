@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct BookyApp: App {
@@ -18,9 +19,8 @@ struct BookyApp: App {
     var body: some Scene {
         WindowGroup {
             ListView()
-                .environment(\.modelContext, BookManager.shared.context)
+                .environment(\.modelContext, ModelContext.shared)
                 .environmentObject(viewModel)
         }
     }
-    
 }

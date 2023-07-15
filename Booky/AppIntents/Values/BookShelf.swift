@@ -7,17 +7,17 @@
 
 import AppIntents
 
-enum Shelf: String {
+enum BookShelf: String {
     case currentlyReading
     case wantToRead
     case read
 }
 
-extension Shelf: AppEnum {
+extension BookShelf: AppEnum {
     
     //static var typeDisplayName: LocalizedStringResource = "Shelf"
     
-    static var caseDisplayRepresentations: [Shelf: DisplayRepresentation] = [
+    static var caseDisplayRepresentations: [BookShelf: DisplayRepresentation] = [
         .currentlyReading: "Currently Reading",
         .wantToRead: "Want to Read",
         .read: "Read"

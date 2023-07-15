@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct ListView: View {
     
-    @Environment(\.managedObjectContext) private var context
+    @AppStorage("isFirstRun")
+    var isFirstRun = true
+    
+    @Environment(\.modelContext) private var context
     @EnvironmentObject private var vm: ViewModel
     
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \BookEntity.title, ascending: true)],
-        animation: .default)
-    private var books: FetchedResults<BookEntity>
+    @Query(sort: \Book.title, order: .forward)
+    private var books: [Book]
     
     var body: some View {
         NavigationStack(path: $vm.path) {
@@ -25,7 +26,7 @@ struct ListView: View {
                     HStack {
                         Spacer()
                         Button {
-                            try? BookManager.shared.addDummyBooks(context: context)
+                            context.insertDummyBooks()
                         } label: {
                             Text("Add Dummy Books")
                         }
@@ -42,7 +43,7 @@ struct ListView: View {
                     .onDelete(perform: deleteBooks)
                 }
             }
-            .navigationDestination(for: BookEntity.self) { book in
+            .navigationDestination(for: Book.self) { book in
                 DetailView(book: book)
             }
             .navigationTitle("Library")
@@ -57,23 +58,24 @@ struct ListView: View {
             }
             .sheet(isPresented: $vm.showingAddNewBook) {
                 NewBookView()
-                    .environment(\.managedObjectContext, context)
+                    .environment(\.modelContext, context)
                     .environmentObject(vm)
+            }
+            .onAppear {
+                if isFirstRun {
+                    // Adds 3 dummy books to the library on first run
+                    context.insertDummyBooks()
+                    isFirstRun = false
+                }
             }
         }
     }
     
     private func deleteBooks(offsets: IndexSet) {
         withAnimation {
-            offsets.map { books[$0] }.forEach(context.delete)
-            do {
-                try context.save()
-            } catch let error {
-                print("Couldn't delete book: \(error.localizedDescription)")
-            }
+            context.deleteBooks(offsets.map { books[$0] })
         }
     }
-    
 }
 
 struct ListView_Previews: PreviewProvider {

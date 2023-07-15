@@ -1,6 +1,6 @@
 import AppIntents
 
-struct ShortcutsBookEntity: Identifiable, AppEntity {
+struct BookEntity: Identifiable, AppEntity {
     var id: UUID
     
     @Property(title: "Title")
@@ -59,10 +59,10 @@ struct ShortcutsBookEntity: Identifiable, AppEntity {
 
 struct IntentsBookQuery: EntityStringQuery {
     
-    func entities(for identifiers: [UUID]) async throws -> [ShortcutsBookEntity] {
+    func entities(for identifiers: [UUID]) async throws -> [BookEntity] {
         return identifiers.compactMap { identifier in
                 if let match = try? BookManager.shared.findBook(withId: identifier) {
-                    return ShortcutsBookEntity(
+                    return BookEntity(
                         id: match.id,
                         title: match.title,
                         author: match.author,
@@ -76,7 +76,7 @@ struct IntentsBookQuery: EntityStringQuery {
     }
 
     // I can't get this func to be called
-    func entities(matching query: String) async throws -> [ShortcutsBookEntity] {
+    func entities(matching query: String) async throws -> [BookEntity] {
         
         let allBooks = BookManager.shared.getAllBooks()
         let matchingBooks = allBooks.filter {
@@ -84,7 +84,7 @@ struct IntentsBookQuery: EntityStringQuery {
         }
 
         return matchingBooks.map {
-            ShortcutsBookEntity(
+            BookEntity(
                 id: $0.id,
                 title: $0.title,
                 author: $0.author,
@@ -94,10 +94,10 @@ struct IntentsBookQuery: EntityStringQuery {
         }
     }
      
-    func suggestedEntities() async throws -> [ShortcutsBookEntity] {
+    func suggestedEntities() async throws -> [BookEntity] {
         let allBooks = BookManager.shared.getAllBooks()
         return allBooks.map {
-            ShortcutsBookEntity(
+            BookEntity(
                 id: $0.id,
                 title: $0.title,
                 author: $0.author,

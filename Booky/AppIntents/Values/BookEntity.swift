@@ -11,10 +11,10 @@ import SwiftData
 
 // A structure that defines a book object from Booky in the Shortcuts app
 // If you don't want all the query capabilities and want a disposable object you can output from Shortcuts with parameters, use the TransientEntity protocol instead: https://developer.apple.com/documentation/appintents/transiententity
-struct BookEntity: Identifiable, Hashable, Equatable, AppEntity {
+struct BookEntity: AppEntity {
   
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Book")
-    static var defaultQuery = IntentsBookQuery()
+    static var defaultQuery = QueryBooksIntent()
     
     var uuid: UUID
     

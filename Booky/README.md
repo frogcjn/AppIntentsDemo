@@ -89,7 +89,7 @@ If Booky's shortcut actions aren't showing in the Shortcuts app, make sure `xcod
 * ~~The **Delete Books** parameter sumary doesn't show correctly, instead showing as if none has been set. I believe this is an issue with `ParameterSummary`'s When/Otherwise API (FB10208191)~~
 * ~~Long-pressing a File parameter in the list UI (as opposed to the parameter summary) has no effect, which makes it impossible to select a magic variable (FB10191345)~~
 * ~~The **Book** entity display name is not showing correctly (FB10210421)~~
-* ~~When tapping on an action's parameter that accepts a custom `ShortcutsBookEntity`, the filtering isn't working. The `entities(matching String)` never seems to get called. (FB10213109)~~
+* ~~When tapping on an action's parameter that accepts a custom `BookEntity`, the filtering isn't working. The `entities(matching String)` never seems to get called. (FB10213109)~~
 
 ---
 

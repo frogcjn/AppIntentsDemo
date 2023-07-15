@@ -6,19 +6,21 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct NewBookView: View {
     
     @Environment(\.dismiss) var dismiss
-    @Environment(\.managedObjectContext) private var context
     @EnvironmentObject private var vm: ViewModel
     
     @State private var title = ""
     @State private var author = ""
     @State private var isRead = false
     @State private var datePublished = Date()
-    @State private var image: UIImage? = nil
+    @State private var uiImage: UIImage? = nil
+    
+    @Environment(\.modelContext)
+    var context
     
     var body: some View {
         NavigationStack {
@@ -33,8 +35,8 @@ struct NewBookView: View {
                     Button {
                         vm.showingImagePicker = true
                     } label: {
-                        if let image {
-                            Image(uiImage: image)
+                        if let uiImage {
+                            Image(uiImage: uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 40, height: 40)
@@ -48,7 +50,7 @@ struct NewBookView: View {
             }
             .textInputAutocapitalization(.words)
             .sheet(isPresented: $vm.showingImagePicker) {
-                ImagePicker(image: $image)
+                ImagePicker(image: $uiImage)
             }
             .navigationTitle("New Book")
             .toolbar {
@@ -62,17 +64,13 @@ struct NewBookView: View {
                     })
                 }
                 ToolbarItem {
-                    Button(action: {
-                        do {
-                            _ = try BookManager.shared.addBook(title: title, author: author, datePublished: datePublished, coverImage: image, isRead: isRead)
-                            dismiss()
-                        } catch let error {
-                            print("Couldn't add book: \(error.localizedDescription)")
-                        }
-                    }, label: {
+                    Button {
+                        context.insert(Book(title: title, author: author, uiImage: uiImage, isRead: isRead, datePublished: datePublished))
+                        dismiss()
+                    } label: {
                         Text("Save")
                             .bold()
-                    })
+                    }
                     .disabled(title == "" || author == "")
                 }
             }

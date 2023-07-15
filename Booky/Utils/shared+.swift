@@ -8,6 +8,17 @@
 import AppIntents
 import SwiftData
 
+extension ModelContainer {
+    static let shared = try! ModelContainer(for: [Book.self])
+}
+
+extension ModelContext {
+    @MainActor
+    static var shared: ModelContext {
+        ModelContainer.shared.mainContext
+    }
+}
+
 extension AppIntent {
     @MainActor
     var context: ModelContext { ModelContext.shared }
@@ -19,6 +30,11 @@ extension EntityQuery {
 }
 
 extension DynamicOptionsProvider {
+    @MainActor
+    var context: ModelContext { ModelContext.shared }
+}
+
+extension AppEntity {
     @MainActor
     var context: ModelContext { ModelContext.shared }
 }

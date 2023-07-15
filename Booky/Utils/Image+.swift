@@ -10,62 +10,72 @@ import class UIKit.UIImage
 import struct AppIntents.IntentFile
 import struct AppIntents.DisplayRepresentation
 
-// UIImage -> Data
+// UIImage, IntentFile -> Data
 
 extension Book {
     convenience init(
-        uuid: UUID = .init(),
-        title: String = "",
-        author: String = "",
-        uiImage: UIImage? = nil,
-        datePublished: Date? = nil,
-        isRead: Bool = false
+                 uuid: UUID? = nil,
+                title: String,
+               author: String,
+              uiImage: UIImage?,
+               isRead: Bool,
+        datePublished: Date? = nil
     ) {
         self.init(
-            uuid: uuid,
-            title: title,
-            author: author,
-            imageData: uiImage?.jpegData(compressionQuality: 1),
-            datePublished: datePublished,
-            isRead: isRead
+                     uuid: uuid,
+                    title: title,
+                   author: author,
+                imageData: uiImage?.jpegData(compressionQuality: 1),
+                   isRead: isRead,
+            datePublished: datePublished
+        )
+    }
+    
+    convenience init(
+                 uuid: UUID? = nil,
+                title: String,
+               author: String,
+            imageFile: IntentFile?,
+               isRead: Bool,
+        datePublished: Date? = nil
+    ) {
+        self.init(
+                     uuid: uuid,
+                    title: title,
+                   author: author,
+                imageData: imageFile?.data,
+                   isRead: isRead,
+            datePublished: datePublished
         )
     }
 }
 
+
 // Data -> ImageFile
 
 extension BookEntity {
-    init(uuid: UUID, title: String, author: String, imageData: Data?, isRead: Bool, datePublished: Date) {
-        self.init(uuid: uuid, title: title, author: author, imageFile: imageData?.imageFile(uuid: uuid), isRead: isRead, datePublished: datePublished)
+    init(
+                 uuid: UUID,
+                title: String,
+               author: String,
+            imageData: Data?,
+               isRead: Bool,
+        datePublished: Date
+    ) {
+        self.init(
+                     uuid: uuid,
+                    title: title,
+                   author: author,
+                imageFile: imageData?.imageFile(uuid: uuid),
+                   isRead: isRead,
+            datePublished: datePublished
+        )
     }
 }
 
 extension Data {
     func imageFile(uuid: UUID) -> IntentFile {
         IntentFile(data: self, filename: "\(uuid).jpg")
-    }
-}
-
-// ImageFile -> Data
-
-extension Book {
-    
-    convenience init(
-                 uuid: UUID = .init(),
-                title: String = "",
-               author: String = "",
-           intentFile: IntentFile? = nil,
-        datePublished: Date? = nil,
-               isRead: Bool = false
-    ) {
-        self.init(
-                     uuid: uuid,
-                    title: title,
-                   author: author,
-                imageData: intentFile?.data,
-            datePublished: datePublished,
-                   isRead: isRead
-        )
     }
 }
 
