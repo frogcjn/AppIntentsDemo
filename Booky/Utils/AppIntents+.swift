@@ -22,9 +22,9 @@ extension Book {
         let order = querySort.order.value
         let keyPath = querySort.by
         return switch keyPath {
-        case         \.title: SortDescriptor(        \.title, order: order)
-        case        \.author: SortDescriptor(       \.author, order: order)
-        case \.datePublished: SortDescriptor(\.datePublished, order: order)
+        case         \.$title: SortDescriptor(        \Book.title, order: order)
+        case        \.$author: SortDescriptor(       \Book.author, order: order)
+        case \.$datePublished: SortDescriptor(\Book.datePublished, order: order)
         default: fatalError()
         }
     }
