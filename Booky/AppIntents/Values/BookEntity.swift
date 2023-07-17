@@ -26,7 +26,7 @@ struct BookEntity: AppEntity {
     
     // option 3: Property Entity Query
     // option 3-1: Property Entity Query - SwiftData version
-    static var defaultQuery = PropertyEntityQuery_BookEntity_CoreData() // !!!: SwiftData version: lack of multiple-predicates filter feature
+    static var defaultQuery = PropertyEntityQuery_BookEntity_SwiftData() // !!!: SwiftData version: lack of multiple-predicates filter feature
     
     // option 3-2: Property Entity Query - CoreData version
     // static var defaultQuery = PropertyEntityQuery_BookEntity_CoreData() // !!!: CoreData version: OK with multiple-predicates filter feature

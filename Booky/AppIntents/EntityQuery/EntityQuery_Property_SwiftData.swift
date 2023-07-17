@@ -19,7 +19,7 @@ import class AppIntents.IsBetweenComparator
 import class AppIntents.EqualToComparator
 import class AppIntents.NotEqualToComparator
 
-struct PropertyEntityQuery_BookEntity_SwiftData_D: EntityPropertyQuery {
+struct PropertyEntityQuery_BookEntity_SwiftData: EntityPropertyQuery {
     
     // Find books by ID
     // For example a user may have chosen a book from a list when tapping on a parameter that accepts Books. The ID of that book is now hardcoded into the Shortcut. When the shortcut is run, the ID will be matched against the database in Booky
@@ -42,11 +42,11 @@ struct PropertyEntityQuery_BookEntity_SwiftData_D: EntityPropertyQuery {
             categoryName: "Searching")
     }
     
-    typealias ComparatorMappingType = (PredicateExpressions.Variable<Book>) -> PredicateExpressions.CollectionContainsCollection<PredicateExpressions.KeyPath<PredicateExpressions.Variable<Book>, String>, PredicateExpressions.Value<String>>
+    typealias ComparatorMappingType = (PredicateExpressions.Variable<Book>) -> any StandardPredicateExpression
 
     static var properties = QueryProperties {
         Property(\BookEntity.$title) {
-            /*EqualToComparator { value in
+            EqualToComparator { value in
                 {
                     PredicateExpressions.build_Equal(
                         lhs: PredicateExpressions.build_KeyPath(
@@ -56,7 +56,7 @@ struct PropertyEntityQuery_BookEntity_SwiftData_D: EntityPropertyQuery {
                         rhs: PredicateExpressions.build_Arg(value)
                     )
                 }
-            }*/
+            }
             ContainsComparator { value in
                 {
                     PredicateExpressions.build_contains(
@@ -137,16 +137,9 @@ struct PropertyEntityQuery_BookEntity_SwiftData_D: EntityPropertyQuery {
         let predicate: Predicate<Book>
         switch mode {
         case.and, .or:
-            predicate = Predicate({ (v: PredicateExpressions.Variable<Book>) in
-                /*return .init(expression:
-                                comparators.reduce(Predicate.true) {
-                    
-                }) (v)
-                )*/
-                let exp = comparators[0](v)
-                //return AnyStandardPredicateExpression(expression: exp)
-                return exp
-            })
+            predicate = Predicate { (v: PredicateExpressions.Variable<Book>) -> any StandardPredicateExpression in
+                return comparators[0](v)
+            }
             
         }
         let sortDescriptors: [SortDescriptor<Book>] = sortedBy.map(Book.sortDescriptor(fromEntity:))
