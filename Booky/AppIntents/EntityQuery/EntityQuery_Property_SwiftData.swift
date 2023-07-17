@@ -42,7 +42,7 @@ struct PropertyEntityQuery_BookEntity_SwiftData: EntityPropertyQuery {
             categoryName: "Searching")
     }
     
-    typealias ComparatorMappingType = (PredicateExpressions.Variable<Book>) -> any StandardPredicateExpression
+    typealias ComparatorMappingType = (PredicateExpressions.Variable<Book>) -> any StandardPredicateExpression<Bool>
 
     static var properties = QueryProperties {
         Property(\BookEntity.$title) {
