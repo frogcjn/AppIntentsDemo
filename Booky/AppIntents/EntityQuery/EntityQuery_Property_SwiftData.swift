@@ -136,7 +136,7 @@ struct PropertyEntityQuery_BookEntity_SwiftData: EntityPropertyQuery {
     ) async throws -> [BookEntity] {
         let predicate: Predicate<Book>
         switch mode {
-        case.and, .or:
+        case .and, .or:
             predicate = Predicate<Book> {
                 let exp : any StandardPredicateExpression<Bool> = comparators[0]($0)
                 return unbox(t: exp)
