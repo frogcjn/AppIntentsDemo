@@ -5,9 +5,17 @@
 //  Created by Alex Hay on 10/06/2022.
 //
 
-import AppIntents
 import SwiftUI
-import SwiftData
+import protocol AppIntents.AppIntent
+
+import struct AppIntents.IntentDialog
+import struct AppIntents.IntentDescription
+import protocol AppIntents.ParameterSummary
+
+import protocol AppIntents.IntentResult
+import protocol AppIntents.ReturnsValue
+import struct AppIntents.IntentFile
+
 
 struct AddBookIntent: AppIntent {
     
@@ -53,7 +61,7 @@ struct AddBookIntent: AppIntent {
     var datePublished: Date?
     
     @MainActor // <-- include if the code needs to be run on the main thread
-    func perform() async throws -> some ReturnsValue<BookEntity> {
+    func perform() async throws ->  some IntentResult & ReturnsValue<BookEntity> {
         let book = Book(
                     title: "\(bookTitle)",
                    author: "\(author)",

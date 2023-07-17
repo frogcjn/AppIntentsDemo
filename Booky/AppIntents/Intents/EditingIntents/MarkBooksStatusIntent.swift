@@ -5,9 +5,17 @@
 //  Created by Alex Hay on 07/06/2022.
 //
 
-import AppIntents
+import Foundation
 
+import protocol AppIntents.AppIntent
 
+import struct AppIntents.IntentDialog
+import struct AppIntents.IntentDescription
+import protocol AppIntents.ParameterSummary
+
+import protocol AppIntents.IntentResult
+import protocol AppIntents.DynamicOptionsProvider
+import struct AppIntents.IntentItem
 
 struct MarkBooksStatusIntent: AppIntent {
     // An enum parameter

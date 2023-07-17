@@ -39,7 +39,7 @@ extension ModelContext {
     // MARK: - Insert
     
     // Inserts 3 dummy books to the library
-    func insertDummyBooks() {
+    func insertDummyBooks() throws {
         let books = [
             Book(
                 title: "The Hobbit",
@@ -64,6 +64,7 @@ extension ModelContext {
             )
         ]
         books.forEach(insert(object:))
+        try save()
     }
     
     // MARK: - Delete

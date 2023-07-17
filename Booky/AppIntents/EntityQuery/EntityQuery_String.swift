@@ -4,7 +4,7 @@
 //
 //  Created by Cao, Jiannan on 7/15/23.
 //
-import AppIntents
+import protocol AppIntents.EntityStringQuery
 
 struct StringEntityQuery_BookEntity: EntityQuery_BookEntity, EntityStringQuery {
     // Find books matching the given query.

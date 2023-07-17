@@ -5,8 +5,18 @@
 //  Created by Alex Hay on 07/06/2022.
 //
 
-import AppIntents
-import SwiftUI
+import Foundation
+import  protocol AppIntents.OpenIntent
+import    struct AppIntents.IntentDialog
+import  protocol AppIntents.ParameterSummary
+import  protocol AppIntents.IntentResult
+import    struct AppIntents.IntentDescription
+import  protocol AppIntents.AppIntent
+import protocol AppIntents.AppEnum
+import protocol AppIntents.CaseDisplayRepresentable
+import struct AppIntents.TypeDisplayRepresentation
+import struct AppIntents.DisplayRepresentation
+
 
 // These will be the options in the Shortcut action to open a book or navigate to the library
 enum NavigationType: String, AppEnum, CaseDisplayRepresentable {
@@ -28,11 +38,11 @@ enum NavigationType: String, AppEnum, CaseDisplayRepresentable {
 
 }
 
-struct OpenBookIntent: AppIntent {
+struct OpenBookIntent: OpenIntent {
     
     // A dynamic lookup parameter
     @Parameter(title: "Book", description: "The book to open in Booky", requestValueDialog: IntentDialog("Which book would you like to open?"))
-    var entity: BookEntity
+    var target: BookEntity
     
     // An enum parameter
     @Parameter(title: "Navigation", description: "Choose whether to open a book or navigate to Booky's library", default: .book, requestValueDialog: IntentDialog("What would you like to navigate to?"))
@@ -43,13 +53,13 @@ struct OpenBookIntent: AppIntent {
         
         Switch(\OpenBookIntent.$navigation) {
             Case(NavigationType.book) {
-                Summary("Open \(\.$navigation) \(\.$entity)")
+                Summary("Open \(\.$navigation) \(\.$target)")
             }
             Case(NavigationType.library) {
                 Summary("Open \(\.$navigation)")
             }
             DefaultCase {
-                Summary("Open \(\.$navigation) \(\.$entity)")
+                Summary("Open \(\.$navigation) \(\.$target)")
             }
         }
     }
@@ -57,12 +67,13 @@ struct OpenBookIntent: AppIntent {
     @MainActor // <-- include if the code needs to be run on the main thread
     func perform() async throws -> some IntentResult {
         if navigation == .book {
-            ViewModel.shared.navigateTo(book: try entity.book)
+            ViewModel.shared.navigateTo(book: try target.book)
         } else {
             ViewModel.shared.navigateToLibrary()
         }
         return .result()
     }
+
 }
 
 extension OpenBookIntent {
@@ -72,6 +83,6 @@ extension OpenBookIntent {
     static var description: IntentDescription = IntentDescription(
         "This action will open the selected book in the Booky app or navigate to the home library.",
     categoryName: "Navigation")
-    // This opens the host app when the action is run
-    static var openAppWhenRun = true
+    /*// This opens the host app when the action is run
+    static var openAppWhenRun = true*/
 }

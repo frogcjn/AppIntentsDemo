@@ -5,7 +5,10 @@
 //  Created by Cao, Jiannan on 7/15/23.
 //
 
-import AppIntents
+import protocol AppIntents.AppValue
+import protocol AppIntents.AppIntent
+import protocol AppIntents.DynamicOptionsProvider
+
 import SwiftData
 import CoreData
 
@@ -30,17 +33,12 @@ extension AppIntent {
     var context: ModelContext { ModelContext.main }
 }
 
-extension EntityQuery {
+extension AppValue {
     @MainActor
     var context: ModelContext { ModelContext.main }
 }
 
 extension DynamicOptionsProvider {
-    @MainActor
-    var context: ModelContext { ModelContext.main }
-}
-
-extension AppEntity {
     @MainActor
     var context: ModelContext { ModelContext.main }
 }

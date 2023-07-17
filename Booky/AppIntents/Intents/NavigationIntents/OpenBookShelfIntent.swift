@@ -5,7 +5,11 @@
 //  Created by Cao, Jiannan on 7/4/23.
 //
 
-import AppIntents
+import protocol AppIntents.AppIntent
+import protocol AppIntents.IntentResult
+import protocol AppIntents.ParameterSummary
+import struct AppIntents.IntentDescription
+import Foundation
 
 struct OpenBookShelfIntent: AppIntent {
     @Parameter(title: "Shelf")

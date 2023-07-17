@@ -5,7 +5,10 @@
 //  Created by Cao, Jiannan on 7/4/23.
 //
 
-import AppIntents
+import Foundation
+import protocol AppIntents.AppIntent
+import protocol AppIntents.IntentResult
+import struct AppIntents.IntentDescription
 
 struct OpenCurrentlyReadingIntent: AppIntent {
     @MainActor

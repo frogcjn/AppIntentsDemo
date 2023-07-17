@@ -5,7 +5,8 @@
 //  Created by Cao, Jiannan on 7/16/23.
 //
 
-import AppIntents
+import Foundation
+import protocol AppIntents.EntityQuery
 
 protocol EntityQuery_BookEntity : EntityQuery {}
 

@@ -5,7 +5,9 @@
 //  Created by Cao, Jiannan on 7/4/23.
 //
 
-import AppIntents
+import protocol AppIntents.AppEnum
+import struct AppIntents.DisplayRepresentation
+import struct AppIntents.TypeDisplayRepresentation
 
 enum BookShelf: String {
     case currentlyReading

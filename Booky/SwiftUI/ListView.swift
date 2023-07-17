@@ -26,7 +26,7 @@ struct ListView: View {
                     HStack {
                         Spacer()
                         Button {
-                            context.insertDummyBooks()
+                            try? context.insertDummyBooks()
                         } label: {
                             Text("Add Dummy Books")
                         }
@@ -64,8 +64,9 @@ struct ListView: View {
             .onAppear {
                 if isFirstRun {
                     // Adds 3 dummy books to the library on first run
-                    context.insertDummyBooks()
-                    isFirstRun = false
+                    if let _ = try? context.insertDummyBooks() {
+                        isFirstRun = false
+                    }
                 }
             }
         }

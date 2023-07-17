@@ -5,13 +5,14 @@
 //  Created by Cao, Jiannan on 7/16/23.
 //
 
-import AppIntents
-
+import protocol AppIntents.EnumerableEntityQuery
+import struct AppIntents.IntentDescription
+/*
 struct EnumerableEntityQuery_BookEntity: EnumerableEntityQuery, EntityQuery_BookEntity {
     static var findIntentDescription: IntentDescription? {
         .init(
             """
-            Search Book with property filters and sorters.
+            Search Book with property filters and sorters. EnumerableEntityQuery
             """,
             categoryName: "Searching"
         )
@@ -22,3 +23,4 @@ struct EnumerableEntityQuery_BookEntity: EnumerableEntityQuery, EntityQuery_Book
         try context.fetchAllBookEntities()
     }
 }
+*/

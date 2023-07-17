@@ -6,14 +6,15 @@
 //
 
 import Foundation
-import AppIntents
-import SwiftData
+import protocol AppIntents.AppEntity
+import   struct AppIntents.IntentFile
+import   struct AppIntents.TypeDisplayRepresentation
+import   struct AppIntents.DisplayRepresentation
 
 // A structure that defines a book object from Booky in the Shortcuts app
 // If you don't want all the query capabilities and want a disposable object you can output from Shortcuts with parameters, use the TransientEntity protocol instead: https://developer.apple.com/documentation/appintents/transiententity
 struct BookEntity: AppEntity {
-  
-    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Book")
+    static var typeDisplayRepresentation: TypeDisplayRepresentation  = "Book"
     
     // MARK: Default Query Options
     
@@ -25,26 +26,26 @@ struct BookEntity: AppEntity {
     
     // option 3: Property Entity Query
     // option 3-1: Property Entity Query - SwiftData version
-    static var defaultQuery = PropertyEntityQuery_BookEntity_SwiftData() // !!!: SwiftData version: lack of multiple-predicates filter feature
+    static var defaultQuery = PropertyEntityQuery_BookEntity_CoreData() // !!!: SwiftData version: lack of multiple-predicates filter feature
     
     // option 3-2: Property Entity Query - CoreData version
     // static var defaultQuery = PropertyEntityQuery_BookEntity_CoreData() // !!!: CoreData version: OK with multiple-predicates filter feature
     
     var uuid: UUID
     
-    @AppEntity.Property(title: "Title")
+    @Property(title: "Title")
     var title: String
     
-    @AppEntity.Property(title: "Author")
+    @Property(title: "Author")
     var author: String
     
-    @AppEntity.Property(title: "Cover Image")
+    @Property(title: "Cover Image")
     var imageFile: IntentFile?
     
-    @AppEntity.Property(title: "Is Read")
+    @Property(title: "Is Read")
     var isRead: Bool
     
-    @AppEntity.Property(title: "Date Published")
+    @Property(title: "Date Published")
     var datePublished: Date
     
     init(

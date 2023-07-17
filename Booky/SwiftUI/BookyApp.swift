@@ -7,9 +7,11 @@
 import SwiftUI
 import SwiftData
 import CoreData
+import AppIntents
 
 @main
-struct BookyApp: App {
+struct BookyApp: App, AppShortcutsProvider {
+    static var appShortcuts: [AppShortcut] = []
     
     @StateObject
     var viewModel = ViewModel.shared
@@ -24,5 +26,9 @@ struct BookyApp: App {
                 .environment(\.managedObjectContext, NSManagedObjectContext.main)
                 .environmentObject(viewModel)
         }
+    }
+    
+    init() {
+        Self.updateAppShortcutParameters()
     }
 }

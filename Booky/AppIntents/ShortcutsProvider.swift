@@ -6,7 +6,6 @@
 //
 
 /*
-import AppIntents
 struct BookyShortcutsProvider : AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         let searchBookShortcut = AppShortcut(intent: SearchBooksIntent(), phrases: ["\(.applicationName) Search"], shortTitle: "search", systemImageName: "magnifyingglass")

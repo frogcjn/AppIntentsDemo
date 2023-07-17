@@ -5,18 +5,23 @@
 //  Created by Alex Hay on 12/06/2022.
 //
 
-import AppIntents
-import UIKit
-import SwiftData
+import Foundation
 
-struct DeleteBooksIntent: AppIntent {
+import protocol AppIntents.DeleteIntent
+
+import struct AppIntents.IntentDialog
+import struct AppIntents.IntentDescription
+import protocol AppIntents.IntentResult
+import protocol AppIntents.ParameterSummary
+
+struct DeleteBooksIntent: DeleteIntent {
     // A dynamic lookup parameter
     @Parameter(
                      title: "Books",
                description: "The books to be deleted from the library",
         requestValueDialog: IntentDialog("Which books would you like to delete?")
     )
-    var books: [BookEntity]
+    var entities: [BookEntity]
     
     @Parameter(
               title: "Confirm Before Deleting",
@@ -28,8 +33,8 @@ struct DeleteBooksIntent: AppIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         if confirmBeforeDeleting {
-            let titles = books.map(\.title)
-            let uiImages = books.compactMap(\.imageFile).compactMap(\.uiImage)
+            let titles = entities.map(\.title)
+            let uiImages = entities.compactMap(\.imageFile).compactMap(\.uiImage)
             
             // Here we prompt the user for confirmation before performing the deletion. User cancellation will throw an error
             try await requestConfirmation(result:
@@ -41,8 +46,8 @@ struct DeleteBooksIntent: AppIntent {
                 }
             )
         }
-        try context.deleteBookEntities(books)
-        return .result(dialog: IntentDialog(stringLiteral: (books.count == 1) ? "Book deleted" : "\(books.count) books deleted"))
+        try context.deleteBookEntities(entities)
+        return .result(dialog: IntentDialog(stringLiteral: (entities.count == 1) ? "Book deleted" : "\(entities.count) books deleted"))
     }
 }
 
@@ -63,11 +68,11 @@ extension DeleteBooksIntent {
     
     static var parameterSummary: some ParameterSummary {
         When(\DeleteBooksIntent.$confirmBeforeDeleting, .equalTo, true, {
-            Summary("Delete \(\.$books)") {
+            Summary("Delete \(\.$entities)") {
                 \.$confirmBeforeDeleting
             }
         }, otherwise: {
-            Summary("Immediately delete \(\.$books)") {
+            Summary("Immediately delete \(\.$entities)") {
                 \.$confirmBeforeDeleting
             }
         })

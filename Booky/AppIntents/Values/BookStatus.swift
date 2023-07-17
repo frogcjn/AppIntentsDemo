@@ -5,7 +5,9 @@
 //  Created by Cao, Jiannan on 7/15/23.
 //
 
-import AppIntents
+import protocol AppIntents.AppEnum
+import struct AppIntents.DisplayRepresentation
+import struct AppIntents.TypeDisplayRepresentation
 
 // These will be the options in the Shortcut action to mark the book as read or unread
 enum BookStatus: String {

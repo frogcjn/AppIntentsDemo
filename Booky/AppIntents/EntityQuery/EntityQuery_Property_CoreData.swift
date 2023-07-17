@@ -5,15 +5,29 @@
 //  Created by Cao, Jiannan on 7/15/23.
 //
 
-import AppIntents
 import CoreData
+import protocol AppIntents.EntityPropertyQuery
+import struct AppIntents.IntentDescription
+import class AppIntents.EqualToComparator
+import class AppIntents.ContainsComparator
+import class AppIntents.LessThanComparator
+import class AppIntents.LessThanOrEqualToComparator
+import class AppIntents.GreaterThanComparator
+import class AppIntents.GreaterThanOrEqualToComparator
+import class AppIntents.IsBetweenComparator
+import class AppIntents.EqualToComparator
+import class AppIntents.NotEqualToComparator
 
 struct PropertyEntityQuery_BookEntity_CoreData: EntityQuery_BookEntity, EntityPropertyQuery {
+    
+    static var persistentIdentifier: String {
+        "PropertyEntityQuery_BookEntity_CoreData"
+    }
     
     static var findIntentDescription: IntentDescription? {
         .init(
             """
-            Search Book with property filters and sorters.
+            Search Book with property filters and sorters. PropertyEntityQuery_BookEntity (Core Data)
             """,
             categoryName: "Searching"
         )
@@ -32,7 +46,12 @@ struct PropertyEntityQuery_BookEntity_CoreData: EntityQuery_BookEntity, EntityPr
         }
         Property(\BookEntity.$datePublished) {
             LessThanComparator { NSPredicate(format: "datePublished < %@", $0 as NSDate) }
+            LessThanOrEqualToComparator { NSPredicate(format: "datePublished <= %@", $0 as NSDate) }
             GreaterThanComparator { NSPredicate(format: "datePublished > %@", $0 as NSDate) }
+            GreaterThanOrEqualToComparator { NSPredicate(format: "datePublished > %@", $0 as NSDate) }
+            IsBetweenComparator { NSPredicate(format: "datePublished >= %@ && datePublished <= %@", $0 as NSDate, $1 as NSDate) }
+            EqualToComparator { NSPredicate(format: "datePublished == %@", $0 as NSDate) }
+            NotEqualToComparator { NSPredicate(format: "datePublished != %@", $0 as NSDate) }
         }
     }
     

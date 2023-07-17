@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AppIntents
+import struct AppIntents.EntityQuerySort
 
 extension EntityQuerySort.Ordering {
     var value: SortOrder {
