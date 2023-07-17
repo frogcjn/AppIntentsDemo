@@ -137,8 +137,9 @@ struct PropertyEntityQuery_BookEntity_SwiftData: EntityPropertyQuery {
         let predicate: Predicate<Book>
         switch mode {
         case.and, .or:
-            predicate = Predicate { (v: PredicateExpressions.Variable<Book>) -> any StandardPredicateExpression in
-                return comparators[0](v)
+            predicate = Predicate<Book> {
+                let exp : any StandardPredicateExpression<Bool> = comparators[0]($0)
+                return unbox(t: exp)
             }
             
         }
@@ -160,6 +161,8 @@ struct PropertyEntityQuery_BookEntity_SwiftData: EntityPropertyQuery {
     }
          
 }
+
+func unbox<T: StandardPredicateExpression<Bool>> (t: T) -> T { t }
 
 struct MyPredictateExpression : StandardPredicateExpression {
     func encode(to encoder: Encoder) throws {
